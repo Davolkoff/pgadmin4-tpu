@@ -533,6 +533,45 @@ def _create_new_user(new_data):
     db.session.add(server_group)
     db.session.commit()
 
+    server = Server(
+        user_id=usr.id,
+        servergroup_id=server_group.id,
+        name="server",
+        host="localhost",
+        port=5432,
+        maintenance_db="main",
+        username=usr.username,
+        save_password=0,
+        comment=None,
+        role=None,
+        db_res='',
+        bgcolor=None,
+        fgcolor=None,
+        service=None,
+        use_ssh_tunnel=0,
+        tunnel_host=None,
+        tunnel_port=22,
+        tunnel_username=None,
+        tunnel_authentication=0,
+        tunnel_identity_file=None,
+        tunnel_keep_alive=0,
+        shared=None,
+        shared_username=None,
+        passexec_cmd=None,
+        passexec_expiration=None,
+        kerberos_conn=0,
+        connection_params={
+            "sslmode": "prefer",
+            "connect_timeout": 10,
+            "sslcert": "<STORAGE_DIR>/.postgresql/postgresql.crt",
+            "sslkey": "<STORAGE_DIR>/.postgresql/postgresql.key"
+        },
+        prepare_threshold=None,
+        tags=[]
+    )
+    db.session.add(server)
+    db.session.commit()
+
 
 def create_user(data):
     if 'auth_source' in data and data['auth_source'] != \
